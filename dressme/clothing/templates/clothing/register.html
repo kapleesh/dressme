@@ -1,0 +1,57 @@
+{% extends "clothing/main.html" %}
+
+{% block content %}
+<div class="content-container"> 
+
+    {% if registered %}
+    <strong>Thanks for registering with DressMe!</strong>
+    <a href="/">Return to the homepage.</a><br />
+    {% else %}
+    <!-- <strong>REGISTER</strong><br /> -->
+    <span class="register">Register</span>
+
+    <form id="user-form" method="post" action="/register/"
+        enctype="multipart/form-data">{% csrf_token %}        
+        <!-- Display each form. The as_p method wraps each element in a paragraph
+        (<p>) element. This ensures each element appears on a new line,
+        making everything look neater. -->
+        <!-- {{ user_form.as_p }} -->
+
+        <div class="form-field first_name">
+            <label>{{ user_form.first_name.label }}</label>
+            {{ user_form.first_name }}
+        </div>
+        <div class="form-field last_name">
+            <label>{{ user_form.last_name.label}}</label>
+            {{ user_form.last_name }}
+        </div>
+
+        <div class="form-field username">
+            <label>{{ user_form.username.label }}</label>
+            {{ user_form.username }}
+        </div>
+
+        <div class="form-field password">
+            <label>{{ user_form.password.label }}</label>
+            {{ user_form.password }}
+        </div>
+
+        <div class="form-field email">
+            <label>{{ user_form.email.label }}</label>
+            {{ user_form.email }}
+        </div>
+
+        <div class="form-field zipcode">
+            <label>{{ user_form.zipcode.label }}</label>
+            {{ user_form.zipcode }}
+        </div>
+
+        <!-- Provide a button to click to submit the form. -->
+        <input type="submit" name="submit" value="Register" />
+    </form>
+    {% endif %}
+    <div class="login-container">
+        <span class="login-text">Already a member?</span> <a class="login" href="/user_login">Login</a>
+    </div>
+</div>
+{% endblock %}

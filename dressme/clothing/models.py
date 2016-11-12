@@ -1,26 +1,10 @@
 from django.db import models
 from django.contrib.auth.models import User
 from datetime import date
+import requests as r 
+
 
 # Create your models here.
-class UserProfile(models.Model):
-	user = models.OneToOneField(User)
-	zipcode = models.IntegerField()
-	wardrobes = models.OneToOneField(Wardrobe)
-	
-
-	def getOutfits(date):
-
-
-	def eventUtility():
-
-	def temperatureUtility():
-
-	def weatherUtility():
-
-
-
-
 class Wardrobe(models.Model):
 	CLOTH_TYPES = (
 		(1, "TOP"),
@@ -44,13 +28,32 @@ class Wardrobe(models.Model):
 		(13, "GLOVES"),
 		)
 	inLaundry = models.BooleanField(default = False)
-	daysWornBeforeWash = models.IntegerField(max_length = 1, default = 0)
-	daysNotUsed = models.IntegerField(max_length = 3, default = 0)
-	cloth_type = models.IntegerField(max_length = 1, choices = CLOTH_TYPES)
-	cloth_name = models.IntegerField(max_length = 2, choices = CLOTH_NAMES)
+	daysWornBeforeWash = models.IntegerField(default = 0)
+	daysNotUsed = models.IntegerField(default = 0)
+	cloth_type = models.IntegerField(choices = CLOTH_TYPES)
+	cloth_name = models.IntegerField(choices = CLOTH_NAMES)
 
 	cloth_type_dict = dict(CLOTH_TYPES)
 	cloth_names_dict = dict(CLOTH_NAMES)
 
 	def get_cloth_names():
 		return cloth_names_dict.values()
+		
+class StormChaser(User):
+	zipcode = models.CharField(max_length=50)
+	#wardrobes = models.OneToOneField(Wardrobe)
+	
+
+	def getOutfits(date):
+		pass
+
+
+	def eventUtility():
+		pass
+
+	def temperatureUtility():
+		pass
+
+	def weatherUtility():
+		pass
+

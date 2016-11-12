@@ -1,0 +1,22 @@
+{% extends "clothing/main.html" %}
+
+{% block content %}
+<div class="content-container">
+    <span class="login">Login</span>
+    {% if wrong_login %}
+        <span class="error">Username or Password is incorrect</span>
+    {% endif %}
+    <form id="login-form" method="post" action="/">{% csrf_token %}        
+        Username <input type="text" name="username" value="" size="50" />
+        <br />
+        Password <input type="password" name="password" value="" size="50" />
+        <br />
+        <input type="submit" class="btn-green" value="Login" />
+    </form>
+    <div class="register-container">
+        <ul>
+            <li><span>Not a member yet?</span> <a class="register" href="/register">Register</a></li>
+        </ul>
+    </div>
+</div>
+{% endblock %}

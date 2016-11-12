@@ -14,6 +14,7 @@ A Django based web application using the to help users pick out tomorrow's outfi
 * Give suggestions based on weather
 * Reminders of when to do laundry based on available clothing and necessary clothing
 * Suggestions of unused clothing to throw out
+* Provide purchase suggestions based on preferences and weather 
 
 
 ## Control Flow

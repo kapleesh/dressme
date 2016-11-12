@@ -20,7 +20,7 @@ try:
     import private_settings
 except ImportError:
     handle = open("private_settings.py", 'w')
-    handle.write("SECRET_KEY = '" + rand_string() + "'\n")
+    handle.write("SECRET_KEY = \"" + rand_string() + "\"\n")
     handle.close()
     import private_settings
 

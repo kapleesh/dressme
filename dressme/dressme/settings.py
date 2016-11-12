@@ -15,12 +15,12 @@ import random, string
 
 def rand_string(n=32, alphabet=string.ascii_uppercase):
     return "".join(random.choice(alphabet) for _ in range(n))
-    
+
 try:
     import private_settings
 except ImportError:
     handle = open("private_settings.py", 'w')
-    handle.write("SECRET_KEY = " + rand_string())
+    handle.write("SECRET_KEY = " + str(rand_string()))
     handle.close()
     import private_settings
 

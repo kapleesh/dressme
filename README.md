@@ -18,12 +18,8 @@ A Django based web application using the to help users pick out tomorrow's outfi
 
 ## Control Flow
 * Login page
-* 
-* Startup screen - logo
-* Input screen - if no user data, prompt to set up new user household, else: show entire household as tableview with user's chore on top
-* Setting up household: input all users and possible chores/due dates and frequency
-* Ability to edit chores, reassign, remove
-* Ability to check off chores
+* User Base - outfits of the day
+* Calendar Interation
 
 ## Implementation
 ### Model

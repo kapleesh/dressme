@@ -4,4 +4,4 @@ from django.views import generic
 # Create your views here.
 
 class RegisterFormView(generic.TemplateView):
-    template_name = 'wardrobe/register.html'
+    template_name = 'register.html'

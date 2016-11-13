@@ -29,12 +29,6 @@ class Wardrobe(models.Model):
 		(11, "SCARF"),
 		(12, "GLOVES"),
 		)
-	CLOTH_WEATHER = (
-		(1, "Cold"),
-		(2, "Chilly"),
-		(3, "Mild"),
-		(4, "Warm"),
-		(5, "Hot"))
 
 	in_laundry = models.BooleanField(default = False)
 	for_cold = models.BooleanField(default = False)
@@ -46,7 +40,6 @@ class Wardrobe(models.Model):
 	daysNotUsed = models.IntegerField(default = 0)
 	cloth_type = models.IntegerField(choices = CLOTH_TYPES)
 	cloth_name = models.IntegerField(choices = CLOTH_NAMES)
-	cloth_weather = models.IntegerField(choices = CLOTH_WEATHER)
 
 	cloth_type_dict = dict(CLOTH_TYPES)
 	cloth_names_dict = dict(CLOTH_NAMES)

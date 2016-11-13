@@ -6,6 +6,13 @@ from geopy.geocoders import Nominatim
 
 WEATHERURL = "http://api.openweathermap.org/data/2.5/forecast"
 
+weather_dict = {1: set(701, 721, 741, 761, 800, 801, 802, 803, 804, 951, 952, 953, 954, 955),
+2: set(615, 620, 751, 300, 301, 500, 501), 4 : set(956, 957, 958, 960),
+3 : set(601, 602, 611, 612, 616, 621, 622), 
+,5 : set(200, 201, 202, 210, 211, 212, 221, 230, 231, 232, 302, 310, 311, 312, 313, 314, 321, 502, 503, 504, 511, 520, 521, 522, 531)
+,6 : set(711, 731, 762, 771, 781, 900, 901, 902, 903, 904, 905, 906, 959, 961, 962)}
+
+
 
 # Create your models here.
 class Wardrobe(models.Model):
@@ -68,11 +75,18 @@ class StormChaser(User):
 		return self.weatherTempUtility(temp, worstWeather)
 
 	def getWorstWeather(day_forecasts):
-		weathers = set([day_forecasts[i].get('weather').get('description') for i in range(7)])
+		weathers = set([day_forecasts[i].get('weather').get('id') for i in range(7)])
+		worstWeather = None
+		worstWeatherNum = 0
+		for weather_id in weathers:
+			for i in range(5):
+				if weather_dict[5-i].contains(weather_id) and 5-i > worstWeatherNum:
+					worstWeatherNum = 5 - i
+					worstWeather = weather_id
+		return worstWeather
 
 	def getAvgTemp(day_forecasts):
 		 return sum([day_forecasts[i].get('main').get('temp') for i in range(7)]) / 7.0
-
 
 	def eventUtility(self):
 		pass
@@ -84,7 +98,6 @@ class StormChaser(User):
 			jackets = possible_clothes.objects.filter(cloth_type=3)
 			accessories = possible_clothes.objects.filter(cloth_type=4)
 			return {"tops": tops, "bottoms": bottoms, "jackets": jackets, "accessories": accessories}
-
 
 		weather_type = 0
 
@@ -106,6 +119,10 @@ class StormChaser(User):
 
 		
 		organized_possible = getAllClothTypes(possible_clothes)
+		def matchesWeather(weather_id, clothing):
+
+		for key in organized_possible:
+			organized_possible[key]
 
 
 

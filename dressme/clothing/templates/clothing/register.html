@@ -5,7 +5,7 @@
 
     {% if registered %}
     <strong>Thanks for registering with DressMe!</strong>
-    <a href="/">Return to the homepage.</a><br />
+    <a href="/index">Go to the homepage!</a><br />
     {% else %}
     <!-- <strong>REGISTER</strong><br /> -->
     <span class="register">Register</span>
@@ -41,9 +41,14 @@
             {{ user_form.email }}
         </div>
 
-        <div class="form-field zipcode">
-            <label>{{ user_form.zipcode.label }}</label>
-            {{ user_form.zipcode }}
+        <div class="form-field city">
+            <label>{{ user_form.city.label }}</label>
+            {{ user_form.city }}
+        </div>
+
+        <div class="form-field city">
+            <label>{{ user_form.state.label }}</label>
+            {{ user_form.state }}
         </div>
 
         <!-- Provide a button to click to submit the form. -->
@@ -51,7 +56,7 @@
     </form>
     {% endif %}
     <div class="login-container">
-        <span class="login-text">Already a member?</span> <a class="login" href="/user_login">Login</a>
+        <span class="login-text">Already a member?</span> <a class="login" href="/index">Login</a>
     </div>
 </div>
 {% endblock %}

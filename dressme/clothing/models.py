@@ -6,11 +6,12 @@ from geopy.geocoders import Nominatim
 
 WEATHERURL = "http://api.openweathermap.org/data/2.5/forecast"
 
-weather_dict = {1: set(701, 721, 741, 761, 800, 801, 802, 803, 804, 951, 952, 953, 954, 955),
-2: set(615, 620, 751, 300, 301, 500, 501), 4 : set(956, 957, 958, 960),
-3 : set(601, 602, 611, 612, 616, 621, 622), 
-,5 : set(200, 201, 202, 210, 211, 212, 221, 230, 231, 232, 302, 310, 311, 312, 313, 314, 321, 502, 503, 504, 511, 520, 521, 522, 531)
-,6 : set(711, 731, 762, 771, 781, 900, 901, 902, 903, 904, 905, 906, 959, 961, 962)}
+weather_dict = {1: set([701, 721, 741, 761, 800, 801, 802, 803, 804, 951, 952, 953, 954, 955]),
+2: set([615, 620, 751, 300, 301, 500, 501]), 
+3 : set([601, 602, 611, 612, 616, 621, 622]),
+4 : set([956, 957, 958, 960]), 
+5 : set([200, 201, 202, 210, 211, 212, 221, 230, 231, 232, 302, 310, 311, 312, 313, 314, 321, 502, 503, 504, 511, 520, 521, 522, 531]),
+6 : set([711, 731, 762, 771, 781, 900, 901, 902, 903, 904, 905, 906, 959, 961, 962])}
 
 
 
@@ -57,7 +58,7 @@ class Wardrobe(models.Model):
 class StormChaser(User):
 	city = models.CharField(max_length = 30, blank=True)
 	state = models.CharField(max_length = 2, blank=True)
-	wardrobe = models.OneToOneField(Wardrobe)
+	wardrobe = models.OneToOneField(Wardrobe, null=True)
 	
 
 	def getOutfits(self):
@@ -124,20 +125,20 @@ class StormChaser(User):
 			for cloth in organized_possible[key]:
 				if ((worstWeatherNum == 5 or worstWeatherNum == 4 or worstWeather == 3)  and cloth.for_cold == False): 
 					organized_possible[key].remove(cloth)
-				else if (worstWeatherNum == 2 and cloth.for_chilly == False): 
+				elif (worstWeatherNum == 2 and cloth.for_chilly == False): 
 					organized_possible[key].remove(cloth)
-				else if (worstWeatherNum == 1 and (cloth.for_mild == False or cloth.for_warm == False)):
+				elif (worstWeatherNum == 1 and (cloth.for_mild == False or cloth.for_warm == False)):
 					organized_possible[key].remove(cloth)
 
 
 		if worstWeatherNum != 1:
-			outfit1 = ['umbrella', organized_possible['tops'][0], organized_possible['bottoms'][0], organized_possible['jackets'][0], organized_possible['accessories'][0])
-			outfit2 = ['umbrella', organized_possible['tops'][1], organized_possible['bottoms'][1], organized_possible['jackets'][1], organized_possible['accessories'][1])
-			outfit3 = ['umbrella', organized_possible['tops'][2], organized_possible['bottoms'][2], organized_possible['jackets'][2], organized_possible['accessories'][2])
+			outfit1 = ['umbrella', organized_possible['tops'][0], organized_possible['bottoms'][0], organized_possible['jackets'][0], organized_possible['accessories'][0]]
+			outfit2 = ['umbrella', organized_possible['tops'][1], organized_possible['bottoms'][1], organized_possible['jackets'][1], organized_possible['accessories'][1]]
+			outfit3 = ['umbrella', organized_possible['tops'][2], organized_possible['bottoms'][2], organized_possible['jackets'][2], organized_possible['accessories'][2]]
 		else: 
-			outfit1 = [organized_possible['tops'][0], organized_possible['bottoms'][0], organized_possible['jackets'][0], organized_possible['accessories'][0])
-			outfit2 = [organized_possible['tops'][1], organized_possible['bottoms'][1], organized_possible['jackets'][1], organized_possible['accessories'][1])
-			outfit3 = [organized_possible['tops'][2], organized_possible['bottoms'][2], organized_possible['jackets'][2], organized_possible['accessories'][2])
+			outfit1 = [organized_possible['tops'][0], organized_possible['bottoms'][0], organized_possible['jackets'][0], organized_possible['accessories'][0]]
+			outfit2 = [organized_possible['tops'][1], organized_possible['bottoms'][1], organized_possible['jackets'][1], organized_possible['accessories'][1]]
+			outfit3 = [organized_possible['tops'][2], organized_possible['bottoms'][2], organized_possible['jackets'][2], organized_possible['accessories'][2]]
 		
 
 	def weatherUtility(self, weather):

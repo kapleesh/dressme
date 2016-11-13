@@ -6,7 +6,7 @@
     {% if wrong_login %}
         <span class="error">Username or Password is incorrect</span>
     {% endif %}
-    <form id="login-form" method="post" action="/">{% csrf_token %}        
+    <form id="login-form" method="post" action="/user_login/">{% csrf_token %}        
         Username <input type="text" name="username" value="" size="50" />
         <br />
         Password <input type="password" name="password" value="" size="50" />
@@ -15,7 +15,7 @@
     </form>
     <div class="register-container">
         <ul>
-            <li><span>Not a member yet?</span> <a class="register" href="/register">Register</a></li>
+            <li><span>Not a member yet?</span> <a class="register" href="/register/">Register</a></li>
         </ul>
     </div>
 </div>

@@ -7,6 +7,10 @@
     <strong>Thanks for registering with DressMe!</strong>
     <a href="/">Return to the homepage.</a><br />
     {% else %}
+    {% if calDescription %}
+        <p></p>
+        <span class="error">description</span>
+    {% endif %}
     <!-- <strong>REGISTER</strong><br /> -->
     <span class="register">Register</span>
 

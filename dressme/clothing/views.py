@@ -9,11 +9,22 @@ from .forms import *
 from .models import *
 from .backends import *
 
-from oauth2client import client
+from oauth2client import client, file, tools
 
+from apiclient.discovery import build
+
+
+import httplib2
 import json
 
 # Create your views here.
+
+flow = client.flow_from_clientsecrets(
+	    'clothing/client_secrets.json',
+	    scope='https://www.googleapis.com/auth/calendar',
+	    redirect_uri='http://localhost:8000/calendarHelper')
+
+CAL = None
 
 @login_required(login_url="/user_login/")
 def index(request):
@@ -25,15 +36,37 @@ def logout_view(request):
 	return render(request, "clothing/login.html", {'logged_out': logged_out})
 
 def testing(request):
-	flow = client.flow_from_clientsecrets(
-	    'clothing/client_secrets.json',
-	    scope='https://www.googleapis.com/auth/drive.metadata.readonly',
-	    redirect_uri='http://localhost:8000/calendar')
 	auth_uri = flow.step1_get_authorize_url()
 	return redirect(auth_uri)
 
+def calendarHelper(request):
+	credentials = flow.step2_exchange(request.GET.get('code', ''))
+	http_auth = credentials.authorize(httplib2.Http())
+	CAL = build('calendar', 'v3', http=http_auth)
+	primary = CAL.calendars()
+	cal = primary.get(calendarId='primary').execute()
+	calID = cal['id']
+	calTime = cal['timeZone']
+	request.session['calendarInfo'] = {'calID': calID, 'calTime': calTime}
+	return redirect('calendar')
+
 def calendar(request):
-	return render(request, "clothing/login.html", {})
+	calID = request.session['calendarInfo']['calID']
+	calTime = request.session['calendarInfo']['calTime']
+	return render(request, "clothing/calendar.html", {'calID':calID, 'calTime':calTime})
+
+def eventAdd(request):
+	event = {
+		'description': '',
+		'start': {
+			'date': ''
+		},
+		'end': {
+			'date': ''
+		},
+		'summary': 'include all 3 outfits',
+	}
+	
 
 def register(request):
 	registered = False

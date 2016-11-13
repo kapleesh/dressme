@@ -1,0 +1,26 @@
+{% extends "clothing/main.html" %}
+{% block content %}
+<div class="content-container">
+<iframe src="https://calendar.google.com/calendar/embed?src={{calID}}&ctz={{calTime}}" style="border: 0" width="800" height="600" frameborder="0" scrolling="no"></iframe>
+</div>
+
+<div class="content-container">
+    <span class="Add_Event">Add Event</span>
+    <form id="event-form" method="post" action="/calendar/">{% csrf_token %} 
+        Description <input type="text" name="Description" value="" size="50" />
+        <br />       
+        Top Outfit <input type="text" name="top-outfit" value="" size="50" />
+        <br />
+        Bottom Outfit <input type="text" name="bottom-outfit" value="" size="50" />
+        <br />
+        Extra Outfit <input type="text" name="extra-outfit" value="" size="50" />
+        <br />
+        City, State <input type="text" name="cityState" value="" size="50" />
+        <br />
+        YYYY-MM-DD <input type="text" name="Day" value="" size="50" />
+        <br />
+        <input type="submit" class="btn-green" value="Submit" />
+    </form>
+</div>
+{% endblock %}
+

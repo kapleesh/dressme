@@ -83,7 +83,7 @@ class StormChaser(User):
 				if weather_dict[5-i].contains(weather_id) and 5-i > worstWeatherNum:
 					worstWeatherNum = 5 - i
 					worstWeather = weather_id
-		return worstWeather
+		return worstWeatherNum
 
 	def getAvgTemp(day_forecasts):
 		 return sum([day_forecasts[i].get('main').get('temp') for i in range(7)]) / 7.0
@@ -91,7 +91,7 @@ class StormChaser(User):
 	def eventUtility(self):
 		pass
 
-	def temperatureUtility(self, temperature, weather):
+	def weatherTempUtility(self, temperature, weather):
 		def getAllClothTypes(possible_clothes):			
 			tops = possible_clothes.objects.filter(cloth_type=1)
 			bottoms = possible_clothes.objects.filter(cloth_type=2)
@@ -119,16 +119,26 @@ class StormChaser(User):
 
 		
 		organized_possible = getAllClothTypes(possible_clothes)
-		def matchesWeather(weather_id, clothing):
 
 		for key in organized_possible:
-			organized_possible[key]
+			for cloth in organized_possible[key]:
+				if ((worstWeatherNum == 5 or worstWeatherNum == 4 or worstWeather == 3)  and cloth.for_cold == False): 
+					organized_possible[key].remove(cloth)
+				else if (worstWeatherNum == 2 and cloth.for_chilly == False): 
+					organized_possible[key].remove(cloth)
+				else if (worstWeatherNum == 1 and (cloth.for_mild == False or cloth.for_warm == False)):
+					organized_possible[key].remove(cloth)
 
 
-
-
-
-
+		if worstWeatherNum != 1:
+			outfit1 = ['umbrella', organized_possible['tops'][0], organized_possible['bottoms'][0], organized_possible['jackets'][0], organized_possible['accessories'][0])
+			outfit2 = ['umbrella', organized_possible['tops'][1], organized_possible['bottoms'][1], organized_possible['jackets'][1], organized_possible['accessories'][1])
+			outfit3 = ['umbrella', organized_possible['tops'][2], organized_possible['bottoms'][2], organized_possible['jackets'][2], organized_possible['accessories'][2])
+		else: 
+			outfit1 = [organized_possible['tops'][0], organized_possible['bottoms'][0], organized_possible['jackets'][0], organized_possible['accessories'][0])
+			outfit2 = [organized_possible['tops'][1], organized_possible['bottoms'][1], organized_possible['jackets'][1], organized_possible['accessories'][1])
+			outfit3 = [organized_possible['tops'][2], organized_possible['bottoms'][2], organized_possible['jackets'][2], organized_possible['accessories'][2])
+		
 
 	def weatherUtility(self, weather):
 		pass

@@ -4,9 +4,14 @@
 <div class="content-container">
     <span class="login">Login</span>
     {% if wrong_login %}
+        <p></p>
         <span class="error">Username or Password is incorrect</span>
     {% endif %}
-    <form id="login-form" method="post" action="/">{% csrf_token %}        
+    {% if logged_out %}
+        <p></p>
+        <span class="logged_out">Logged out successfully</span>
+    {% endif %}
+    <form id="login-form" method="post" action="/user_login/">{% csrf_token %}        
         Username <input type="text" name="username" value="" size="50" />
         <br />
         Password <input type="password" name="password" value="" size="50" />

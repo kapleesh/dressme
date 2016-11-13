@@ -55,18 +55,54 @@ def calendar(request):
 	calTime = request.session['calendarInfo']['calTime']
 	return render(request, "clothing/calendar.html", {'calID':calID, 'calTime':calTime})
 
-def eventAdd(request):
-	event = {
-		'description': '',
-		'start': {
-			'date': ''
-		},
-		'end': {
-			'date': ''
-		},
-		'summary': 'include all 3 outfits',
-	}
+#eventAdd 
+#method occurs when you submit in calendar the event form
+#tries to create a new eventForm object
+#add to DB?
+#I think i want to redirect to eventAuth now first. 
+#fixme!
+#not sure halp pls
+
+# def eventAdd(request):
+# 	eventAdded = False
+# 	if request.method == 'POST':
+# 		event_form = EventForm(data=request.POST)
+# 		if event_form.is_valid():
+# 			event = event_form.save()
+# 			event.save()
+# 			eventAdded = True
+# 		else:
+# 			print(str(event_form.errors))
+# 	else:
+# 		event_form = EventForm()
+# 	return render(request, "clothing/calendar.html", {'event_form': event_form, 'eventAdded': eventAdded})
 	
+#eventAuth: 
+#method wants to take request from eventAdd
+#and add it to google's event calendar
+#now you'll see it on their calendar too!
+#note that they don't have 3 outfit fields
+#so we compress it into summary.
+#not sure how request.POST[] works.
+#should render clothing aftewards.
+
+# def eventAuth(request):
+# 	if request.method == 'POST':
+# 		description = request.POST['description']
+# 		startDate = request.POST['startDate']
+# 		summary = request.POST['summary']
+# 		location = request.POST['location']
+# 	event = {
+# 		'description': description,
+# 		'start': {
+# 			'date': startDate
+# 		},
+# 		'summary': summary,
+# 		'location': location
+# 	}
+# 	event = CAL.events().insert(calendarId='primary', body=event).execute()
+# 	return render(request, "clothing/calendar.html")
+
 
 def register(request):
 	registered = False

@@ -42,7 +42,7 @@ class Wardrobe(models.Model):
 	daysNotUsed = models.IntegerField(default = 0)
 	cloth_type = models.IntegerField(choices = CLOTH_TYPES)
 	cloth_name = models.IntegerField(choices = CLOTH_NAMES)
-	cloth_weather = models.IntegerField(choices = CLOTH_NAMES)
+	cloth_weather = models.IntegerField(choices = CLOTH_WEATHER)
 
 	cloth_type_dict = dict(CLOTH_TYPES)
 	cloth_names_dict = dict(CLOTH_NAMES)
@@ -67,6 +67,7 @@ class StormChaser(User):
 		five_day_forecast = data_dict.get('list')
 		one_day_forecast = five_day_forecast[0:7]
 		worstWeather = getWorstWeather(one_day_forecast)
+		weatherUtility(getAvgTemp(one_day_forecast))
 
 	def getWorstWeather(day_forecasts):
 		weathers = set([day_forecasts[i].get('weather').get('description') for i in range(7)])
@@ -78,8 +79,9 @@ class StormChaser(User):
 	def eventUtility(self):
 		pass
 
-	def temperatureUtility(self, tempeature):
-		pass
+	def temperatureUtility(self, temperature):
+		if temperature <= 55: 
+			possibleClothes = StormChaser.objects.filter(cloth_weather = 1)
 
 	def weatherUtility(self, weather):
 		pass

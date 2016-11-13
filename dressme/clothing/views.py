@@ -34,10 +34,12 @@ def logout_view(request):
 	logout(request)
 	return redirect('/user_login')
 
+@login_required(login_url="/user_login/")
 def authorize(request):
 	auth_uri = flow.step1_get_authorize_url()
 	return redirect(auth_uri)
 
+@login_required(login_url="/user_login/")
 def calendarHelper(request):
 	credentials = flow.step2_exchange(request.GET.get('code', ''))
 	http_auth = credentials.authorize(httplib2.Http())
@@ -49,6 +51,7 @@ def calendarHelper(request):
 	request.session['calendarInfo'] = {'calID': calID, 'calTime': calTime}
 	return redirect('calendar')
 
+@login_required(login_url="/user_login/")
 def calendar(request):
 	calID = request.session['calendarInfo']['calID']
 	calTime = request.session['calendarInfo']['calTime']
@@ -96,6 +99,7 @@ def register(request):
 			user.set_password(user.password)
 			user.save()
 			registered = True
+			login(request, user)
 		else:
 			print(str(user_form.errors))
 	else:

@@ -9,9 +9,9 @@ from .forms import *
 from .models import *
 from .backends import *
 
-from oauth2client import client, file, tools
+#from oauth2client import client, file, tools
 
-from apiclient.discovery import build
+#from apiclient.discovery import build
 
 
 import httplib2
@@ -19,12 +19,12 @@ import json
 
 # Create your views here.
 
-flow = client.flow_from_clientsecrets(
+"""flow = client.flow_from_clientsecrets(
 	    'clothing/client_secrets.json',
 	    scope='https://www.googleapis.com/auth/calendar',
 	    redirect_uri='http://localhost:8000/calendarHelper')
 
-CAL = None
+CAL = None"""
 
 @login_required(login_url="/user_login/")
 def index(request):
@@ -34,7 +34,7 @@ def logout_view(request):
 	logout(request)
 	return redirect('/user_login')
 
-def authorize(request):
+def testing(request):
 	auth_uri = flow.step1_get_authorize_url()
 	return redirect(auth_uri)
 

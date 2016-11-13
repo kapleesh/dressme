@@ -1,7 +1,10 @@
 from django.db import models
 from django.contrib.auth.models import User
 from datetime import date
-import requests as r 
+import requests
+from geopy.geocoders import Nominatim
+
+WEATHERURL = "http://api.openweathermap.org/data/2.5/forecast"
 
 
 # Create your models here.
@@ -27,11 +30,19 @@ class Wardrobe(models.Model):
 		(12, "SCARF"),
 		(13, "GLOVES"),
 		)
+	CLOTH_WEATHER = (
+		(1, "Cold"),
+		(2, "Chilly"),
+		(3, "Mild"),
+		(4, "Warm"),
+		(5, "Hot"))
+
 	inLaundry = models.BooleanField(default = False)
 	daysWornBeforeWash = models.IntegerField(default = 0)
 	daysNotUsed = models.IntegerField(default = 0)
 	cloth_type = models.IntegerField(choices = CLOTH_TYPES)
 	cloth_name = models.IntegerField(choices = CLOTH_NAMES)
+	cloth_weather = models.IntegerField(choices = CLOTH_NAMES)
 
 	cloth_type_dict = dict(CLOTH_TYPES)
 	cloth_names_dict = dict(CLOTH_NAMES)
@@ -40,20 +51,36 @@ class Wardrobe(models.Model):
 		return cloth_names_dict.values()
 		
 class StormChaser(User):
-	zipcode = models.CharField(max_length=50)
+	city = models.CharField(max_length = 30)
+	state = models.CharField(max_length = 2)
 	#wardrobes = models.OneToOneField(Wardrobe)
 	
 
-	def getOutfits(date):
+	def getOutfits(self):
+		api_id = '329ece2a6e7bcf2ad488f635b21588d0'
+		geolocator = Nominatim()
+		location = geolocator.geocode(self.city + ", " + self.state)	
+		latitude = location.latitude
+		longitude = location.longitude
+		data = requests.get(WEATHERURL, params = dict(lat = latitude, lon = longitude, units = 'imperial', APPID = api_id))
+		data_dict = data.json()
+		five_day_forecast = data_dict.get('list')
+		one_day_forecast = five_day_forecast[0:7]
+		worstWeather = getWorstWeather(one_day_forecast)
+
+	def getWorstWeather(day_forecasts):
+		weathers = set([day_forecasts[i].get('weather').get('description') for i in range(7)])
+
+	def getAvgTemp(day_forecasts):
+		 return sum([day_forecasts[i].get('main').get('temp') for i in range(7)]) / 7.0
+
+
+	def eventUtility(self):
 		pass
 
-
-	def eventUtility():
+	def temperatureUtility(self, tempeature):
 		pass
 
-	def temperatureUtility():
-		pass
-
-	def weatherUtility():
+	def weatherUtility(self, weather):
 		pass
 

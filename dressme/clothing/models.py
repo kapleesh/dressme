@@ -1,7 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
 from datetime import date
-import requests as r 
+
 
 
 # Create your models here.
@@ -45,6 +45,7 @@ class StormChaser(User):
 	
 
 	def getOutfits(date):
+
 		pass
 
 

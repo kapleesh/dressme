@@ -17,6 +17,7 @@ import json
 def index(request):
 	return render(request, "clothing/index.html", {})
 
+
 def register(request):
 	registered = False
 

@@ -143,3 +143,4 @@ class StormChaser(User):
 
 	def weatherUtility(self, weather):
 		pass
+		

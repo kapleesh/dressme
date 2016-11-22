@@ -1,1 +1,77 @@
 {% extends "clothing/main.html" %}
+<!DOCTYPE html>
+<html lang='en'>
+  <head>
+    <title><%= title %></title>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+    <link rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css' integrity='sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u' crossorigin='anonymous'>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+  </head>
+  <body>
+    <h1><%= title %></h1>
+    <div class='container-fluid'>
+      <div class='row'>
+        <div class='col-md-4'>
+          <div class='panel panel-primary'>
+            <div class='panel-heading'> Option 1 </div>
+            <div class='panel-body'> content </div>
+          </div>
+        </div>
+        <div class='col-md-4'>
+          <div class='panel panel-primary'>
+            <div class='panel-heading'> Option 2 </div>
+            <div class='panel-body'> content </div>
+          </div>
+        </div>
+        <div class='col-md-4'>
+          <div class='panel panel-primary'>
+            <div class='panel-heading'> Option 3 </div>
+            <div class='panel-body'> content </div>
+          </div>
+        </div>
+      </div>
+      <div class='row'>
+        <div class='col-md-4'>
+          <button class='btn btn-default'>Recommend Me</button>
+        </div>
+      </div>
+      <div class='row'>
+        <div class='col-md-5'>
+          <div class='panel panel-primary'>
+            <div class='panel-heading'> Wardrobe </div>
+            <div class='panel-body'> 
+              <div id='wardrobe'>
+                <div class='row'>
+                  <div class='col-md-4'>
+                    clothing article types
+                  </div>
+                  <div class='col-md-4'>
+                    Add/Remove
+                  </div>
+                  <div class='col-md-4'>
+                    clean, in laundry
+                  </div>
+                </div>
+                <% for (var article in dummyDB) { %>
+                <% if (dummyDB.hasOwnProperty(article)) { %>
+                <div class='row'> 
+                  <div class='col-md-4 article'><%= article %></div> 
+                  <div class='col-md-4'>
+                    <button class='btn btn-default incr'>+</button>
+                    <button class='btn btn-default decr'>-</button>
+                  </div>
+                  <div class='col-md-4'>
+                    <span class='clean'><%= dummyDB[article][0] %></span>, <%= dummyDB[article][1] %> 
+                  </div>
+                </div>
+                <% }} %>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script src='https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js'></script>
+  </body>
+</html>
+

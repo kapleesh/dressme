@@ -6,7 +6,7 @@
 - Jayanth Sundaresan
 
 ## Purpose
-A Django based web application to help users pick out tomorrow's outfits today. 
+A Django based web application to help users pick out tomorrow's outfits today; work in progress
 
 
 ## Features
